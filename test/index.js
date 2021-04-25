@@ -9,5 +9,9 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
+  await db.changeUser({
+    user: "root2",
+    password: "qwert12345",
+  })
   console.log(await db.fetch("select * from `user`", { one: true }))
 })
