@@ -8,4 +8,6 @@ const db = createConnector({
 
 db.connect().then(() => {
   console.log("Connected")
+
+  setTimeout(() => db.close(), 1000)
 })
