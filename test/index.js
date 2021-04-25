@@ -4,10 +4,11 @@ const db = createConnector({
   host: "localhost",
   user: "root",
   password: "qwert12345",
+  database: "test",
 })
 
-db.connect().then(() => {
+db.connect().then(async function () {
   console.log("Connected")
-
-  setTimeout(() => db.close(), 1000)
+  const query = await db.query("select * from `user`")
+  console.log(query)
 })
