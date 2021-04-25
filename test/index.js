@@ -9,6 +9,5 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = await db.query("select * from `user`")
-  console.log(query)
+  console.log(await db.fetch("select * from `user`", { one: true }))
 })
