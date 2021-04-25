@@ -1,0 +1,27 @@
+{
+  "name": "dbriver",
+  "version": "0.0.0",
+  "description": "MySQL database utility",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roproger/dbriver.git"
+  },
+  "keywords": [
+    "mysql",
+    "database",
+    "nodejs"
+  ],
+  "author": "RoProger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roproger/dbriver/issues"
+  },
+  "homepage": "https://github.com/roproger/dbriver#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
