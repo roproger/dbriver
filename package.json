@@ -1,6 +1,6 @@
 {
   "name": "dbriver",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "MySQL database utility",
   "main": "lib/index.js",
   "scripts": {
