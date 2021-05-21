@@ -12,16 +12,25 @@ db.connect().then(async function () {
   console.log(
     db
       .select()
-      .from(
-        { u: "user" },
-        {
-          join: { w: "wallet" },
-          on: { "w.user_id": { $eId: "u.id" }, "w.balance": { $gte: 1000 } },
+      .from("user")
+      .where({
+        id: 5,
+        status: {
+          $in: [
+            "manager",
+            "it",
+            db.select("name").from("statuses").where({ id: 5 }),
+          ],
         },
-        { join: "test", prefix: "cross" },
-        { join: "test2", using: ["a", "b", "c"] },
-        "test3"
-      )
+        age: { $btw: [18, 40] },
+        name: { $lk: "Stephan" },
+        taskList: { $isnt: null },
+        $or: {
+          rate: { $gt: 3 },
+          joinDate: { $lt: new Date("2021-02-15") },
+        },
+      })
       .toSqlString()
-  ) // select * from `user` `u` inner join `wallet` `w` on `w`.`user_id`=`u`.`id` and `w`.`balance`>=1000 cross join `test` inner join `test2` using (`a`,`b`,`c`),`test3`
+  )
+  // select * from `user` where `id`=5 and `status` in ('manager','it',(select `name` from `statuses` where `id`=5)) and `age` between 18 and 40 and `name` like 'Stephan' and `taskList` is not NULL and (`rate`>3 and `joinDate`<'2021-02-15 02:00:00.000')
 })
