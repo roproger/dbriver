@@ -11,21 +11,17 @@ db.connect().then(async function () {
   console.log("Connected")
   console.log(
     db
-      .select("id")
-      .into({
-        outFile: "test.txt",
-        charSet: "utf-8",
-        linesStartingBy: "\n",
-        linesTerminatedBy: "\n",
-        fieldsEscapedBy: "\\",
-      })
+      .select()
+      .from(
+        { u: "user" },
+        {
+          join: { w: "wallet" },
+          on: { "w.user_id": { $eId: "u.id" }, "w.balance": { $gte: 1000 } },
+        },
+        { join: "test", prefix: "cross" },
+        { join: "test2", using: ["a", "b", "c"] },
+        "test3"
+      )
       .toSqlString()
-  ) // select `id` into outfile 'test.txt' character set utf-8 fields escaped by '\\' lines starting by '\n' lines terminated by '\n'
-  console.log(db.select("id").into({ dumpFile: "test.txt" }).toSqlString()) // select `id` into dumpfile 'test.txt'
-  console.log(
-    db
-      .select("id")
-      .into({ vars: ["a", "b"] })
-      .toSqlString()
-  ) // select `id` into @a,@b
+  ) // select * from `user` `u` inner join `wallet` `w` on `w`.`user_id`=`u`.`id` and `w`.`balance`>=1000 cross join `test` inner join `test2` using (`a`,`b`,`c`),`test3`
 })
