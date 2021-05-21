@@ -9,8 +9,6 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  console.log(
-    db.select().from("user").groupByWithRollup("name", 2).toSqlString()
-  )
-  // select * from `user` group by `name`,2 with rollup
+  console.log(db.select().from("user").having({ a: "b" }).toSqlString())
+  // select * from `user` having `a`='b'
 })
