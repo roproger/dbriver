@@ -9,6 +9,17 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  console.log(db.select().from("user").limit(5, 10).toSqlString())
+  console.log(
+    db
+      .select()
+      .from("user")
+      .into({
+        dumpFile: "test.txt",
+        position: "afterLock",
+      })
+      .limit(5, 10)
+      .lockFor({ mode: "share", of: ["a", "b", "c"], flag: "nowait" })
+      .toSqlString()
+  )
   // select * from `user` limit 5,10
 })
