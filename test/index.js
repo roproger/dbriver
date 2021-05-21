@@ -9,5 +9,5 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  console.log(await db.count("select id from `user`", { distinct: "id" }))
+  console.log(db.state)
 })
