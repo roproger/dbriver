@@ -21,7 +21,8 @@ db.connect().then(async function () {
     "f.g",
     "test`test",
     { h: { $e: "te'st" } },
-    { $eId: "i.j", forbidQualified: true }
+    { $eId: "i.j", forbidQualified: true },
+    { $: 0 }
   )
-  console.log(query.toSqlString()) // select `a`,`2`,1+2 `c`,(select 1+2) `d`,NULL,NULL `e`,`f`.`g`,`testtest`,'te\'st' `h`,`i.j`
+  console.log(query.toSqlString()) // select `a`,`2`,1+2 `c`,(select 1+2) `d`,NULL,NULL `e`,`f`.`g`,`testtest`,'te\'st' `h`,`i.j`,0
 })
