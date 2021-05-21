@@ -9,5 +9,6 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
+  await db.close()
   console.log(db.state)
 })
