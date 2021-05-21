@@ -9,7 +9,19 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.select().flag("test").flag("test2")
-  query.flag("test", false)
-  console.log(query.toSqlString())
+  const query = db.select(
+    "a",
+    2,
+    { c: { $: "1+2" } },
+    { d: db.select({ $: "1+2" }) },
+    null,
+    undefined,
+    NaN,
+    { e: null },
+    "f.g",
+    "test`test",
+    { h: { $e: "te'st" } },
+    { $eId: "i.j", forbidQualified: true }
+  )
+  console.log(query.toSqlString()) // select `a`,`2`,1+2 `c`,(select 1+2) `d`,NULL,NULL `e`,`f`.`g`,`testtest`,'te\'st' `h`,`i.j`
 })
