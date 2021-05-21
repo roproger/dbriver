@@ -9,20 +9,23 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.select(
-    "a",
-    2,
-    { c: { $: "1+2" } },
-    { d: db.select({ $: "1+2" }) },
-    null,
-    undefined,
-    NaN,
-    { e: null },
-    "f.g",
-    "test`test",
-    { h: { $e: "te'st" } },
-    { $eId: "i.j", forbidQualified: true },
-    { $: 0 }
-  )
-  console.log(query.toSqlString()) // select `a`,`2`,1+2 `c`,(select 1+2) `d`,NULL,NULL `e`,`f`.`g`,`testtest`,'te\'st' `h`,`i.j`,0
+  console.log(
+    db
+      .select("id")
+      .into({
+        outFile: "test.txt",
+        charSet: "utf-8",
+        linesStartingBy: "\n",
+        linesTerminatedBy: "\n",
+        fieldsEscapedBy: "\\",
+      })
+      .toSqlString()
+  ) // select `id` into outfile 'test.txt' character set utf-8 fields escaped by '\\' lines starting by '\n' lines terminated by '\n'
+  console.log(db.select("id").into({ dumpFile: "test.txt" }).toSqlString()) // select `id` into dumpfile 'test.txt'
+  console.log(
+    db
+      .select("id")
+      .into({ vars: ["a", "b"] })
+      .toSqlString()
+  ) // select `id` into @a,@b
 })
