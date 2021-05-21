@@ -21,5 +21,5 @@ db.connect().then(async function () {
       .lockFor({ mode: "share", of: ["a", "b", "c"], flag: "nowait" })
       .toSqlString()
   )
-  // select * from `user` limit 5,10
+  // select * from `user` limit 5,10 for share of `a`,`b`,`c` nowait into dumpfile 'test.txt'
 })
