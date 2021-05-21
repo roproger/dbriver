@@ -9,6 +9,16 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  await db.close()
-  console.log(db.state)
+  const clone = db.clone()
+
+  clone.connect().then(function () {
+    db.fetch("select id from user").then((results) => {
+      console.log("db", results)
+      console.log("db thread", db.threadId)
+    })
+    clone.fetch("select id from user").then((results) => {
+      console.log("clone", results)
+      console.log("clone thread", clone.threadId)
+    })
+  })
 })
