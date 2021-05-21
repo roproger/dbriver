@@ -9,16 +9,7 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const clone = db.clone()
-
-  clone.connect().then(function () {
-    db.fetch("select id from user").then((results) => {
-      console.log("db", results)
-      console.log("db thread", db.threadId)
-    })
-    clone.fetch("select id from user").then((results) => {
-      console.log("clone", results)
-      console.log("clone thread", clone.threadId)
-    })
-  })
+  const query = db.select().flag("test").flag("test2")
+  query.flag("test", false)
+  console.log(query.toSqlString())
 })
