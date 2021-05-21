@@ -9,12 +9,6 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  console.log(
-    db
-      .select()
-      .from("user")
-      .orderBy([1, "desc"], { test: "asc" }, "test2 desc")
-      .toSqlString()
-  )
-  // select * from `user` order by 1 desc,`test` asc,test2 desc
+  console.log(db.select().from("user").limit(5, 10).toSqlString())
+  // select * from `user` limit 5,10
 })
