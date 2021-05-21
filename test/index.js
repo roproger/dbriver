@@ -9,9 +9,5 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const a = db.select().from("user")
-  const b = a.clone()
-  b.where({ id: 5 })
-  console.log(a.toSqlString())
-  console.log(b.toSqlString())
+  db.select().from("user").count().then(console.log)
 })
