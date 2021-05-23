@@ -9,6 +9,6 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.insert()
+  const query = db.insert().flag("LOW_PRIORITY")
   console.log(query.toSqlString())
 })
