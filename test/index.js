@@ -9,10 +9,7 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.insert(
-    ["test", 123, { $: "CURRENT_TIME" }, db.select("id").from("user").limit(1)],
-    [new Date(), { $eId: "test2" }, null]
-  )
+  const query = db.insert([1, 2, 3]).into("test")
   console.log(query.toSqlString())
-  // insert values ('test',123,CURRENT_TIME,(select `id` from `user` limit 1)),('2021-05-23 20:14:15.800',`test2`,NULL,NULL)
+  // insert into `test` values (1,2,3)
 })
