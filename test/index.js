@@ -9,7 +9,7 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.insert([1, 2, 3]).into("test")
+  const query = db.insert([1, 2, 3]).into("test").cols("a", "b", "c")
   console.log(query.toSqlString())
-  // insert into `test` values (1,2,3)
+  // insert into `test` (`a`,`b`,`c`) values (1,2,3)
 })
