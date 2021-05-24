@@ -9,7 +9,10 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.update("test").update({ join: "test2" })
+  const query = db
+    .update("test")
+    .set({ a: { $eId: "b" } })
+    .set({ c: 1 })
   console.log(query.toSqlString())
-  // update `test` inner join `test2`
+  // update `test` set `a`=`b`,`c`=1
 })
