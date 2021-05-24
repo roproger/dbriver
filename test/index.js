@@ -9,7 +9,7 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.update().flag("IGNORE")
+  const query = db.update("test").update({ join: "test2" })
   console.log(query.toSqlString())
-  // update IGNORE
+  // update `test` inner join `test2`
 })
