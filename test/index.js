@@ -10,10 +10,10 @@ const db = createConnector({
 db.connect().then(async function () {
   console.log("Connected")
   const query = db
-    .insert({ row: [1, 2, 3] })
+    .insert()
     .into("test")
     .onDuplicateKeyUpdate({ a: 1 })
-    .set({ b: 2 })
+    .select(db.select("a").from("b"))
   console.log(query.toSqlString())
-  // insert into `test` (`a`,`b`,`c`,`d`) values row(1,2,3,NULL),(NULL,'test','test',NULL),row('123',NULL,NULL,'123')
+  // insert into `test` select `a` from `b` on duplicate key update `a`=1
 })
