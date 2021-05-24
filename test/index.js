@@ -15,6 +15,7 @@ db.connect().then(async function () {
     .set({ c: 1 })
     .where({ id: 5 })
     .orderBy({ a: "desc" })
+    .limit(10)
   console.log(query.toSqlString())
-  // update `test` set `a`=`b`,`c`=1 where `id`=5 order by `a` desc
+  // update `test` set `a`=`b`,`c`=1 where `id`=5 order by `a` desc limit 10
 })
