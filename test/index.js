@@ -9,7 +9,7 @@ const db = createConnector({
 
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.delete().flag("ignore")
+  const query = db.delete().from({ t: "test" }).from({ t2: "test2" })
   console.log(query.toSqlString())
   // delete ignore
 })
