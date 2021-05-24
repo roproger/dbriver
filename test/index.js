@@ -10,10 +10,14 @@ const db = createConnector({
 db.connect().then(async function () {
   console.log("Connected")
   const query = db
-    .insert("(1,2,3)", { row: ["test"] })
-    .cols("a", "b", "c")
-    .insert({ row: { c: "test'string", a: db.select("a").from("d").limit(1) } })
-    .into("table")
+    .update(
+      { t: "test" },
+      { join: { t2: "test2" }, prefix: "left", on: { "t2.a_id": "t.id" } }
+    )
+    .set({
+      a: db.select("a").from("b").limit(1),
+    })
+    .orderBy([1, "asc"], [2, "desc"])
   console.log(query.toSqlString())
-  // insert into `table` (`a`,`b`,`c`) values (1,2,3),row('test',NULL,NULL),row((select `a` from `d` limit 1),NULL,'test\'string')
+  // update `test` `t` left join `test2` `t2` on `t2`.`a_id`='t.id' set `a`=(select `a` from `b` limit 1) order by 1 asc,2 desc
 })
