@@ -13,6 +13,7 @@ db.connect().then(async function () {
     .update("test")
     .set({ a: { $eId: "b" } })
     .set({ c: 1 })
+    .where({ id: 5 })
   console.log(query.toSqlString())
-  // update `test` set `a`=`b`,`c`=1
+  // update `test` set `a`=`b`,`c`=1 where `id`=5
 })
