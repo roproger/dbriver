@@ -12,9 +12,8 @@ db.connect().then(async function () {
   const query = db
     .insert({ row: [1, 2, 3] })
     .into("test")
-    .cols("a", "b", "c")
-    .insert({ b: "test", c: "test" })
-    .insert({ row: { a: "123", d: "123" } })
+    .onDuplicateKeyUpdate({ a: 1 })
+    .set({ b: 2 })
   console.log(query.toSqlString())
   // insert into `test` (`a`,`b`,`c`,`d`) values row(1,2,3,NULL),(NULL,'test','test',NULL),row('123',NULL,NULL,'123')
 })
