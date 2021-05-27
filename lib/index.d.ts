@@ -15,7 +15,8 @@ declare interface ConnectorInstance
   extends SelectExtPrototype,
     UpdateExtPrototype,
     InsertExpPrototype,
-    DeleteExpPrototype {
+    DeleteExpPrototype,
+    UnionSelectExpPrototype {
   options: ConnectionConfig | null
   current: Connection | null
 
@@ -56,6 +57,26 @@ declare interface Query {
   results?: OkPacket
   fields?: FieldInfo[]
 }
+
+declare interface UnionSelectExpPrototype {
+  unionSelect: UnionSelectInstance["unionSelect"]
+}
+
+declare interface UnionSelectInstance
+  extends OrderByPart<UnionSelectInstance>,
+    LimitPartWithOneParameter<UnionSelectInstance>,
+    QueryPrototype,
+    FetchPrototype,
+    ClonePrototype<UnionSelectInstance> {
+  unionSelect: (...parts: Array<UnionSelectPart>) => UnionSelectInstance
+  toSqlString: () => string
+}
+
+declare type UnionSelectPart =
+  | SelectInstance
+  | UnionSelectPart[]
+  | string
+  | { all?: UnionSelectPart; distinct?: UnionSelectPart }
 
 declare interface DeleteExpPrototype {
   delete: DeleteInstance["delete"]
