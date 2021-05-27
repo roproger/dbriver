@@ -76,7 +76,7 @@ declare type UnionSelectPart =
   | SelectInstance
   | UnionSelectPart[]
   | string
-  | { all?: UnionSelectPart; distinct?: UnionSelectPart }
+  | { all?: UnionSelectPart; distinct?: UnionSelectPart; table?: string }
 
 declare interface DeleteExpPrototype {
   delete: DeleteInstance["delete"]

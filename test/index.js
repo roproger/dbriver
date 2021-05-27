@@ -14,8 +14,9 @@ db.connect().then(async function () {
     {
       all: db.select().from("b"),
     },
-    [db.select().from("c"), db.select({ $: "1" })]
+    [db.select().from("c"), db.select({ $: "1" })],
+    { table: "test" }
   )
   console.log(query.toSqlString())
-  // select * from `a` union all select * from `b` union (select * from `c` union select 1)
+  // select * from `a` union all select * from `b` union (select * from `c` union select 1) union table `test`
 })
