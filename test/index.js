@@ -7,16 +7,13 @@ const db = createConnector({
   database: "test",
 })
 
+const query = db.cache(({ col, id }) =>
+  db.select(col).from("user").where({ id })
+)
+
 db.connect().then(async function () {
   console.log("Connected")
-  const query = db.unionSelect(
-    db.select().from("a"),
-    {
-      all: db.select().from("b"),
-    },
-    [db.select().from("c"), db.select({ $: "1" })],
-    { table: "test" }
-  )
+
   console.log(query.toSqlString())
   // select * from `a` union all select * from `b` union (select * from `c` union select 1) union table `test`
 })
