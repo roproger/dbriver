@@ -9,7 +9,9 @@ import {
 } from "mysql"
 
 export const version: string
-export function createConnector(options: ConnectionConfig): ConnectorInstance
+export function createConnector(options: Config): ConnectorInstance
+
+declare type Config = ConnectionConfig & { autoreconnect?: boolean }
 
 declare interface ConnectorInstance
   extends SelectExtPrototype,
@@ -18,7 +20,7 @@ declare interface ConnectorInstance
     DeleteExpPrototype,
     UnionSelectExpPrototype,
     CacheExtPrototype {
-  options: ConnectionConfig | null
+  options: Config | null
   current: Connection | null
 
   connect(): Promise<Connection>
