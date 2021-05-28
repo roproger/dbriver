@@ -16,7 +16,8 @@ declare interface ConnectorInstance
     UpdateExtPrototype,
     InsertExpPrototype,
     DeleteExpPrototype,
-    UnionSelectExpPrototype {
+    UnionSelectExpPrototype,
+    CacheExtPrototype {
   options: ConnectionConfig | null
   current: Connection | null
 
@@ -56,6 +57,22 @@ declare type QueryValues = any[]
 declare interface Query {
   results?: OkPacket
   fields?: FieldInfo[]
+}
+
+declare interface CacheExtPrototype {
+  cache: CacheInstance<string, ToSql>["cache"]
+}
+
+declare interface CacheInstance<T extends string, J extends ToSql>
+  extends ClonePrototype<CacheInstance<T, J>> {
+  cache<K extends string, I extends ToSql>(
+    replacers: Array<K>,
+    constructor: (patterns: { [key in K]: any }) => I
+  ): CacheInstance<K, I>
+  expand(
+    expander: (instance: J, patterns: { [key in T]: any }) => void
+  ): CacheInstance<T, J>
+  toSqlString(replacers?: { [key in T]: any }): string
 }
 
 declare interface UnionSelectExpPrototype {
@@ -320,7 +337,13 @@ declare type FlagPart<T, K> = {
   flag: (name: K, show?: boolean) => T
 }
 
-declare type ToSql = SelectInstance
+declare type ToSql =
+  | SelectInstance
+  | DeleteInstance
+  | UpdateInstance
+  | InsertInstance
+  | UnionSelectInstance
+  | CacheInstance
 
 declare type ConstantExpression = { $: any }
 declare type ConstantEscapeValue = {
