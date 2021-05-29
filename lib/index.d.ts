@@ -1,3 +1,4 @@
+import { PoolConfig } from "mysql"
 import {
   Connection,
   ConnectionConfig,
@@ -377,3 +378,9 @@ declare type Expression =
   | ConstantEscapeValue
   | ConstantEscapeId
   | { [key: string]: Expression }
+
+export function createPoolConnector(options: PoolConfig): PoolConnectorInstance
+
+declare interface PoolConnectorInstance {
+  getConnection(): Promise<ConnectorInstance & { release(): void }>
+}
