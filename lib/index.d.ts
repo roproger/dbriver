@@ -38,6 +38,7 @@ declare interface ConnectorInstance
   escape: EscapeFunctions["escape"]
   escapeId: EscapeFunctions["escapeId"]
   clone(): ConnectorInstance
+  use(database: string): Promise<Query>
 }
 
 declare interface QueryFunction {

@@ -5,6 +5,7 @@ const pool = createPoolConnector({
   user: "root",
   password: "qwert12345",
   database: "test",
+  connectionLimit: 10,
 })
 
 async function main() {
