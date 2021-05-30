@@ -20,7 +20,8 @@ declare interface ConnectorInstance
     InsertExpPrototype,
     DeleteExpPrototype,
     UnionSelectExpPrototype,
-    CacheExtPrototype {
+    CacheExtPrototype,
+    TransactionExtPrototype {
   options: Config | null
   current: Connection | null
 
@@ -61,6 +62,41 @@ declare type QueryValues = any[]
 declare interface Query {
   results?: OkPacket
   fields?: FieldInfo[]
+}
+
+declare interface TransactionExtPrototype {
+  startTransaction(
+    ...characteristics: Array<
+      "WITH CONSISTENT SNAPSHOT" | "READ WRITE" | "READ ONLY"
+    >
+  ): Promise<Query>
+  commit(options?: {
+    andNoChain?: boolean
+    andChain?: boolean
+    noRelease?: boolean
+    release?: boolean
+  }): Promise<Query>
+  rollback(options?: {
+    andNoChain?: boolean
+    andChain?: boolean
+    noRelease?: boolean
+    release?: boolean
+  }): Promise<Query>
+  savepoint(identifier: string): Promise<Query>
+  rollbackTo(identifier: string): Promise<Query>
+  releaseSavepoint(identifier: string): Promise<Query>
+  setTransaction(options: {
+    global?: boolean
+    session?: boolean
+    characteristics: Array<{
+      isolationLevel?:
+        | "REPEATABLE READ"
+        | "READ COMMITTED"
+        | "READ UNCOMMITTED"
+        | "SERIALIZABLE"
+      access?: "READ WRITE" | "READ ONLY"
+    }>
+  }): Promise<Query>
 }
 
 declare interface CacheExtPrototype {
