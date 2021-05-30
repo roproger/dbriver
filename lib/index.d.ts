@@ -383,7 +383,6 @@ declare type ToSql =
   | UpdateInstance
   | InsertInstance
   | UnionSelectInstance
-  | CacheInstance
 
 declare type ConstantExpression = { $: any }
 declare type ConstantEscapeValue = {
