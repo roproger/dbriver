@@ -380,7 +380,9 @@ declare type Expression =
   | ConstantEscapeId
   | { [key: string]: Expression }
 
-export function createPoolConnector(options: PoolConfig): PoolConnectorInstance
+export function createPoolConnector(
+  options: PoolConfig & { autoreconnect?: boolean }
+): PoolConnectorInstance
 
 declare interface PoolConnectorInstance {
   getConnection(): Promise<ConnectorInstance & { release(): void }>
