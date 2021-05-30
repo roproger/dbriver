@@ -12,21 +12,7 @@ const pool = createPoolConnector({
 async function main() {
   const db = await pool.getConnection()
 
-  await db.startTransaction()
-  try {
-    await db
-      .select({ $: "@a:=id" })
-      .from("user")
-      .limit(1)
-      .orderBy({ id: "asc" })
-      .lockFor({ mode: "update" })
-      .query()
-    console.log(await db.update("user").set({ fullName: "Test Test" }).query())
-    await db.commit()
-  } catch (e) {
-    console.log(e)
-    await db.rollback()
-  }
+  console.log(db.select().from("user").where({}, { id: 5, a: 6 }).toSqlString())
 
   db.release()
 }
