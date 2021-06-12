@@ -238,7 +238,7 @@ declare interface SelectInstance
   count(
     list: Array<{ distinct: string } | string>,
     options: FetchOptions
-  ): SelectInstance
+  ): Promise<number>
   toSqlString(): string
 }
 
