@@ -12,7 +12,13 @@ const pool = createPoolConnector({
 async function main() {
   const db = await pool.getConnection()
 
-  console.log(db.select().from("user").where({}, { id: 6 }).toSqlString())
+  console.log(
+    db
+      .select()
+      .from("user")
+      .where({ $or: { a: 1, b: 2 } })
+      .toSqlString()
+  )
 
   db.release()
 }
