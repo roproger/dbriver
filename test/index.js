@@ -14,9 +14,9 @@ async function main() {
 
   console.log(
     db
-      .select()
-      .from("user")
-      .where({ $or: { a: 1, b: 2 } })
+      .unionSelect([db.select("a").from("b")], [db.select("a").from("c")])
+      .orderBy({ id: "desc" })
+      .limit(1)
       .toSqlString()
   )
 
