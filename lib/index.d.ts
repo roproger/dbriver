@@ -236,8 +236,8 @@ declare interface SelectInstance
   select(...selectExpressions: Expression[]): SelectInstance
   from(...tableReferences: TableReferences[]): SelectInstance
   count(
-    list: Array<{ distinct: string } | string>,
-    options: FetchOptions
+    list?: Array<{ distinct: string } | string>,
+    options?: FetchOptions
   ): Promise<number>
   toSqlString(): string
 }
