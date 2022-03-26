@@ -311,6 +311,7 @@ declare type CondLeftRight =
   | string
   | {
       [key: string]:
+        | string
         | ConstantExpression
         | ConstantEscapeValue
         | ConstantEscapeId
