@@ -47,7 +47,7 @@ declare interface QueryFunction {
   (sql: string, options: QueryOptions): Promise<Query>
 }
 
-declare interface FetchOptions extends QueryOptions {
+declare interface FetchOptions extends Partial<QueryOptions> {
   one?: boolean
   index?: number
 }
