@@ -247,13 +247,13 @@ declare interface ClonePrototype<T> {
 }
 
 declare interface QueryPrototype {
-  query(values: QueryValues, options: QueryOptions): Promise<Query>
-  query(options: QueryOptions): Promise<Query>
+  query(values?: QueryValues, options?: QueryOptions): Promise<Query>
+  query(options?: QueryOptions): Promise<Query>
 }
 
 declare interface FetchPrototype<T = any> {
-  fetch(values: QueryValues, options: FetchOptions): Promise<T>
-  fetch(options: FetchOptions): Promise<T>
+  fetch(values?: QueryValues, options?: FetchOptions): Promise<T>
+  fetch(options?: FetchOptions): Promise<T>
 }
 
 declare type LockPart<T> = {
